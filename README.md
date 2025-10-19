@@ -114,7 +114,7 @@ Customer_ID	Recency	Frequency	Monetary	Segment
 📈 Quick Insights
 The total number of orders: 717 across 110 customers (mostly from the UK).
 
-Average payment per order: £19.89
+Average payment per order: 19.89
 
 Most orders are placed between 09:00 AM and 4:30 PM.
 
