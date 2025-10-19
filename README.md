@@ -20,9 +20,9 @@ By assigning scores to each RFM metric and classifying customers into meaningful
 USE RFM;
 SELECT * FROM tableRetail;
 
-/* ============================================================
+
   Query 1: Finding Number of Customers, Orders, and Average Paid Price per Country
-============================================================ */
+
 
 SELECT DISTINCT country AS Country,
        COUNT(DISTINCT invoice) AS Number_Of_Orders,
@@ -32,16 +32,14 @@ FROM tableretail
 GROUP BY country
 ORDER BY Number_Of_Orders DESC, Number_Of_Customers DESC;
 
-/* ---------------- Output Sample ----------------
+ ---------------- Output Sample ----------------
 | Country        | Number_Of_Orders | Number_Of_Customers | Avg_Payment |
 |----------------|------------------|---------------------|--------------|
 | United Kingdom | 717              | 110                 | 19.89        |
--------------------------------------------------- */
 
 
-/* ============================================================
+
   Query 2: Number of Orders per Date
-============================================================ */
 
 SELECT invoicedate AS Date,
        COUNT(invoice) AS Number_Of_Orders
@@ -49,18 +47,16 @@ FROM tableretail
 GROUP BY invoicedate
 ORDER BY Number_Of_Orders DESC;
 
-/* ---------------- Output Sample ----------------
+---------------- Output Sample ----------------
 | Date            | Number_Of_Orders |
 |-----------------|------------------|
 | 11/17/2011 14:26| 154              |
 | 9/28/2011 15:21 | 141              |
 | 11/8/2011 14:22 | 140              |
--------------------------------------------------- */
 
 
-/* ============================================================
   Query 3: Quantities Ordered per Date
-============================================================ */
+
 
 SELECT invoicedate AS Date,
        SUM(quantity) AS Total_Quantities_Per_Date
@@ -68,18 +64,16 @@ FROM tableretail
 GROUP BY invoicedate
 ORDER BY Total_Quantities_Per_Date DESC;
 
-/* ---------------- Output Sample ----------------
+ ---------------- Output Sample ----------------
 | Date            | Total_Quantities_Per_Date |
 |-----------------|----------------------------|
 | 8/4/2011 18:06  | 11848                     |
 | 8/11/2011 15:58 | 6098                      |
 | 10/27/2011 12:26| 4936                      |
--------------------------------------------------- */
 
 
-/* ============================================================
   Query 4: Total Revenue per Date
-============================================================ */
+
 
 SELECT invoicedate AS Date,
        SUM(price * quantity) AS Total_Revenue
@@ -87,18 +81,18 @@ FROM tableretail
 GROUP BY invoicedate
 ORDER BY Total_Revenue DESC;
 
-/* ---------------- Output Sample ----------------
+ ---------------- Output Sample ----------------
 | Date            | Total_Revenue |
 |-----------------|----------------|
 | 8/4/2011 18:06  | 18841          |
 | 8/11/2011 15:58 | 9350           |
 | 11/9/2011 13:56 | 4961           |
--------------------------------------------------- */
 
 
-/* ============================================================
+
+
   Query 5: Highest Paid Customers per Date
-============================================================ */
+
 
 SELECT Customer_ID,
        invoicedate AS Date,
@@ -116,9 +110,8 @@ ORDER BY Total_Price DESC;
 -------------------------------------------------- */
 
 
-/* ============================================================
   Query 6: RFM Segmentation
-============================================================ */
+
 
 WITH rfm_base AS (
     SELECT 
@@ -161,30 +154,29 @@ SELECT
 FROM customer_segment_base
 ORDER BY recency DESC, frequency DESC, monetary DESC;
 
-/* ---------------- Output Sample ----------------
+ ---------------- Output Sample ----------------
 | Customer_ID | Recency | Frequency | Monetary | Segment              |
 |--------------|----------|------------|-----------|----------------------|
 | 12868        | 5        | 4          | 4         | Loyal Customers      |
 | 12872        | 5        | 4          | 3         | Loyal Customers      |
 | 12878        | 5        | 3          | 3         | Potential Loyalists  |
--------------------------------------------------- */
 
 
-/* ============================================================
+
   Quick Insights
-============================================================
+
 
 - Total number of orders: 717 across 110 customers (mostly from the UK).
-- Average payment per order: £19.89.
+- Average payment per order: $19.89.
 - Most orders occur between 09:00 AM and 4:30 PM.
-- Highest revenue recorded: £18,841 on 8/4/2011 18:06.
+- Highest revenue recorded: $18,841 on 8/4/2011 18:06.
 - Customers tend to order multiple items frequently — indicating potential loyalty segments.
 ============================================================ */
 
 
 Most orders are placed between 09:00 AM and 4:30 PM.
 
-The highest revenue occurred on 8/4/2011 18:06 with total sales of 18,841.
+The highest revenue occurred on 8/4/2011 18:06 with total sales of $18,841.
 
 Customers tend to order multiple items frequently — indicating potential for loyalty segmentation.
 
